@@ -1,11 +1,11 @@
 $(document).ready(function() {
-  die = new Die;
-  $('#roller button.add').on('click', die.addDice);
+  var newDie = new Die;
+  $('#roller button.add').on('click', newDie.addDice);
 
   $('#roller button.roll').on('click', function() {
     $('.die').each(function(k, die) {
-      var value = Math.floor((Math.random()*6)+1);
-      $('.die').text(value);
+      newDie.roll(); //no clue why () is needed...go bug jeffrey or zee later on during the week.  
+      newDie.showValues($(die),newDie.value);
     });
   });
 });
@@ -15,17 +15,17 @@ function Die() {
 }
 
 // Dice.prototype.value = 0;
+Die.prototype.addDice = function() {
+  $('.dice').append('<div class="die">0</div>');
+};
 
 Die.prototype.roll = function() {
   this.value = Math.floor((Math.random()*6)+1);
 };
 
-Die.prototype.addDice = function() {
-  $('.dice').append('<div class="die">0</div>');
-};
 
-Die.prototype.showValues = function() {
-  $('.die').text(value);
+Die.prototype.showValues = function(element,value) {
+  element.text(value);
 };
 
 
